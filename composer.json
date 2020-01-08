@@ -1,0 +1,30 @@
+{
+    "name": "neondigital/larvel-versioning",
+    "description": "Versioning for Eloquent models",
+    "type": "library",
+    "require": {
+      "laravel/framework": ">=5.8"
+    },
+    "require-dev": {
+      "phpunit/phpunit": "^8.4@dev",
+      "orchestra/testbench": "^5.0@dev"
+    },
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "Alec Ritson",
+        "email": "alec@neondigital.co.uk"
+      }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+      "psr-4": {
+        "NeonDigital\\Versioning\\": "src/"
+      }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "Tests\\": "tests/"
+      }
+    }
+  }
