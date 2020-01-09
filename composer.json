@@ -1,6 +1,6 @@
 {
-    "name": "neondigital/larvel-versioning",
-    "description": "Versioning for Eloquent models",
+    "name": "neondigital/laravel-drafting",
+    "description": "Drafting for Eloquent models",
     "type": "library",
     "require": {
       "laravel/framework": ">=5.8"
@@ -19,12 +19,22 @@
     "minimum-stability": "dev",
     "autoload": {
       "psr-4": {
-        "NeonDigital\\Versioning\\": "src/"
+        "NeonDigital\\Drafting\\": "src/"
       }
     },
     "autoload-dev": {
       "psr-4": {
         "Tests\\": "tests/"
       }
+    },
+    "extra": {
+        "laravel": {
+            "providers" : [
+              "NeonDigital\\Drafting\\DraftingServiceProvider"
+            ],
+            "aliases": {
+              "Versioning": "NeonDigital\\Drafting\\Facade"
+            }
+        }
     }
   }
