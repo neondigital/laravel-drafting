@@ -4,27 +4,29 @@ namespace NeonDigital\Drafting;
 
 trait Draftable
 {
-    public $uuid = null;
-
-    public $published = true;
-
     /**
-     * Get the version relationship
+     * Boot up the trait
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return void
      */
-    public function version()
+    public static function bootDraftable()
     {
-        return $this->belongsTo(Version::class);
+        static::addGlobalScope(new DraftScope);
     }
 
-    public static function bootVersionable()
+    /**
+     * Get the draft for the current version
+     *
+     * @return void
+     */
+    public function draft()
     {
-        static::addGlobalScope(new VersionScope);
+        return $this->hasOne(self::class, 'draft_parent_id')->onlyDrafted();
+    }
 
-        // self::creating(function ($model) {
-        //     app(VersionService::class)->createVersion($model, true);
-        // });
+    public function publishedParent()
+    {
+        return $this->belongsTo(self::class, 'draft_parent_id');
     }
 
     /**
@@ -32,9 +34,9 @@ trait Draftable
      *
      * @return void
      */
-    public function initializeVersioned()
+    public function initializeDraftable()
     {
-        $this->dates[] = $this->getVersionedAtColumn();
+        $this->dates[] = $this->getDraftedAtColumn();
     }
 
     /**
@@ -42,9 +44,9 @@ trait Draftable
      *
      * @return string
      */
-    public function getVersionedAtColumn()
+    public function getDraftedAtColumn()
     {
-        return defined('static::PUBLISHED_AT') ? static::VERSIONED_AT : 'published_at';
+        return defined('static::DRAFTED_AT') ? static::DRAFTED_AT : 'drafted_at';
     }
 
     /**
@@ -52,8 +54,8 @@ trait Draftable
      *
      * @return string
      */
-    public function getQualifiedVersionedAtColumn()
+    public function getQualifiedDraftedAtColumn()
     {
-        return $this->qualifyColumn($this->getVersionedAtColumn());
+        return $this->qualifyColumn($this->getDraftedAtColumn());
     }
 }

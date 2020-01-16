@@ -33,7 +33,7 @@
               "NeonDigital\\Drafting\\DraftingServiceProvider"
             ],
             "aliases": {
-              "Versioning": "NeonDigital\\Drafting\\Facade"
+              "Drafting": "NeonDigital\\Drafting\\Facade"
             }
         }
     }
