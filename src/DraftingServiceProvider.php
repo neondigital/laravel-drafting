@@ -19,7 +19,7 @@ class DraftingServiceProvider extends ServiceProvider
         Blueprint::macro('drafting', function () {
             $this->timestamp('drafted_at')->nullable()->index();
             $this->integer('draft_parent_id')->nullable()->unsigned();
-            $this->foreign('draft_parent_id')->references('id')->on($this->getTable());
+            $this->foreign('draft_parent_id')->references('id')->on($this->getTable())->onDelete('SET NULL');
         });
     }
 
