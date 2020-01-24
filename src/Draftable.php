@@ -24,6 +24,11 @@ trait Draftable
         return $this->hasOne(self::class, 'draft_parent_id')->onlyDrafted();
     }
 
+    public function isDraft()
+    {
+        return (bool) $this->drafted_at;
+    }
+
     public function publishedParent()
     {
         return $this->belongsTo(self::class, 'draft_parent_id');
